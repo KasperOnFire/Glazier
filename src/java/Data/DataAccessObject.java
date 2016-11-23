@@ -31,26 +31,48 @@ public class DataAccessObject {
         double height = Double.parseDouble(hei);
         double width = Double.parseDouble(wid);
         double frameprice = getFramePrice(frame);
+        double glassprice = getGlassPrice("Glass");
         double finalPrice = 0;
 
-        finalPrice = pc.calculatePrice(height, width, frameprice);
-        return finalPrice;
+        if (frameprice == 0) {
+            return 0;
+        } else {
+            finalPrice = pc.calculatePrice(height, width, frameprice, glassprice);
+            return finalPrice;
+        }
     }
 
     private double getFramePrice(String frame) {
-        double frameprice = 0;
+        double framePrice = 0;
         String sql = "select price from pricelist where product='?'";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, frame.toLowerCase());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                frameprice = rs.getInt("price");
+                framePrice = rs.getInt("price");
                 return framePrice;
             }
         } catch (SQLException sqlex) {
-            return 0;
+            return framePrice;
         }
-        return 0;
+        return framePrice;
+    }
+
+    private double getGlassPrice(String glass) {
+        double glassPrice = 0;
+        String sql = "select price from pricelist where product='?'";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, glass);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                glassPrice = rs.getInt("price");
+                return glassPrice;
+            }
+        } catch (SQLException sqlex) {
+            return glassPrice;
+        }
+        return glassPrice;
     }
 }
