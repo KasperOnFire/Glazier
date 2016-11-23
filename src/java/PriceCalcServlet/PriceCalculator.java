@@ -1,7 +1,19 @@
 package PriceCalcServlet;
 
+/**
+ *
+ * @author Kasper
+ */
 public class PriceCalculator {
 
+    /**
+     *
+     * @param hei
+     * @param wid
+     * @param framePrice
+     * @param glassPrice
+     * @return
+     */
     public double calculatePrice(double hei, double wid, double framePrice, double glassPrice) {
         double gp;
         double fp;

@@ -10,9 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ *
+ * @author Kasper
+ */
 @WebServlet(name = "PriceResult", urlPatterns = {"/PriceResult"})
 public class PriceResult extends HttpServlet {
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -31,10 +42,10 @@ public class PriceResult extends HttpServlet {
                 DBConnector con = new DBConnector();
                 DataAccessObject dao = new DataAccessObject(con);
                 double price = dao.returnPrice(request.getParameter("height"), request.getParameter("width"), request.getParameter("frametype"), "glass");
-                if (price == 0) {
+                if (price <= 0) {
                     response.sendRedirect("error.html");
                 } else {
-                    out.println("<h3>price: " + price + "</h3>");
+                    out.println("<h3>price: " + price + ",-</h3>");
                 }
             } catch (Exception ex) {
                 out.println("<h3>Error in connection. Maybe MySQL isnt running? Error is:" + ex + "</h3>");

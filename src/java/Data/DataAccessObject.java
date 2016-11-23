@@ -8,6 +8,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author Kasper
+ */
 public class DataAccessObject {
 
     private DBConnector db = null;
@@ -17,6 +21,10 @@ public class DataAccessObject {
     //The class constructor gives access to the getters in the class, 
     //which give access to the database. The constructor also opens a 
     //connection to the database.
+    /**
+     *
+     * @param inputcon
+     */
     public DataAccessObject(DBConnector inputcon) {
         try {
             db = inputcon;
@@ -27,11 +35,19 @@ public class DataAccessObject {
         }
     }
 
+    /**
+     *
+     * @param hei
+     * @param wid
+     * @param frame
+     * @param Glass
+     * @return
+     */
     public double returnPrice(String hei, String wid, String frame, String Glass) {
         double height = Double.parseDouble(hei);
         double width = Double.parseDouble(wid);
-        double frameprice = getFramePrice(frame);
-        double glassprice = getGlassPrice(Glass);
+        double frameprice = getFramePriceFromSQL(frame);
+        double glassprice = getGlassPriceFromSQL(Glass);
         double finalPrice = 0;
 
         if (frameprice == 0) {
@@ -42,7 +58,7 @@ public class DataAccessObject {
         }
     }
 
-    private double getFramePrice(String frame) {
+    private double getFramePriceFromSQL(String frame) {
         double framePrice = 0;
         String sql = "select price from pricelist where product='" + frame + "'";
         try {
@@ -58,7 +74,7 @@ public class DataAccessObject {
         return framePrice;
     }
 
-    private double getGlassPrice(String glass) {
+    private double getGlassPriceFromSQL(String glass) {
         double glassPrice = 0;
         String sql = "select price from pricelist where product='" + glass + "'";
         try {

@@ -14,8 +14,24 @@ body{
 .maindiv{
     position: fixed;
     height: 100%;
-    width: 75%;
-    margin-left: 12.5%;
-    margin-right: 12.5%;
-    background-color: rgba(255, 255, 255, 0.5)
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: rgba(255, 255, 255, 0.2);
+    font-family: sans-serif;
+    text-align: center;
+    font-weight: bold;
+}
+
+input{
+    display: block;
+    margin: 5px auto;
+}
+
+.maindiv p{
+    font-size: 20px;
+}
+
+input [type="submit"]{
+    font-size: 25px;
 }
