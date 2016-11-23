@@ -23,7 +23,7 @@ public class DataAccessObject {
     //connection to the database.
     /**
      *
-     * @param inputcon
+     * @param inputcon is the connection to the database that will be used.
      */
     public DataAccessObject(DBConnector inputcon) {
         try {
@@ -37,12 +37,13 @@ public class DataAccessObject {
 
     /**
      *
-     * @param hei
-     * @param wid
-     * @param frame
-     * @param Glass
-     * @param metric
-     * @return
+     * @param hei height of the window
+     * @param wid width of the windows
+     * @param frame type of frame. Gets the price from DB
+     * @param Glass type of glass. Gets the price from DB
+     * @param metric centimeter or meter. For correct calulations.
+     * @return the calculated prize for the specified window. Will later be
+     * currency converted in PriceResult.java/currencyConvert();
      */
     public double returnPrice(String hei, String wid, String frame, String Glass, String metric) {
         double height = Double.parseDouble(hei);
