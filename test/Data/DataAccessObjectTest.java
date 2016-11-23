@@ -32,8 +32,11 @@ public class DataAccessObjectTest {
 
     /**
      * Test of returnPrice method, of class DataAccessObject, with numbers from
-     * assignment papers. also tests if a connetion to the database can be
-     * established.
+     * assignment papers.
+     *
+     * This is mainly for testing if the connection to the database can be
+     * established! All calculation test will be done in
+     * PriceCalculatorTest.java
      */
     @Test
     public void testReturnPriceCM() throws Exception {
@@ -46,7 +49,7 @@ public class DataAccessObjectTest {
         DBConnector conn = new DBConnector();
         DataAccessObject instance = new DataAccessObject(conn);
         double expResult = 1000.0;
-        double result = instance.returnPrice(hei, wid, frame, glass, metric);
+        double result = instance.getPrice(hei, wid, frame, glass, metric);
         assertEquals(expResult, result, 0.0);
 
     }

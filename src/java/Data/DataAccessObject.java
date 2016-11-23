@@ -18,10 +18,10 @@ public class DataAccessObject {
     private Connection conn = null;
     private PriceCalculator pc = new PriceCalculator();
 
-    //The class constructor gives access to the getters in the class, 
-    //which give access to the database. The constructor also opens a 
-    //connection to the database.
     /**
+     * The class constructor gives access to the getters in the class, which
+     * give access to the database. The constructor also opens a connection to
+     * the database.
      *
      * @param inputcon is the connection to the database that will be used.
      */
@@ -37,15 +37,18 @@ public class DataAccessObject {
 
     /**
      *
-     * @param hei height of the window
-     * @param wid width of the windows
+     * This method gets the data from the database, and passes it along to the
+     * method that does the actual calculation.
+     *
+     * @param hei height of the window.
+     * @param wid width of the windows.
      * @param frame type of frame. Gets the price from DB
      * @param Glass type of glass. Gets the price from DB
      * @param metric centimeter or meter. For correct calulations.
      * @return the calculated prize for the specified window. Will later be
      * currency converted in PriceResult.java/currencyConvert();
      */
-    public double returnPrice(String hei, String wid, String frame, String Glass, String metric) {
+    public double getPrice(String hei, String wid, String frame, String Glass, String metric) {
         double height = Double.parseDouble(hei);
         double width = Double.parseDouble(wid);
         double frameprice = getFramePriceFromSQL(frame);
@@ -98,11 +101,14 @@ public class DataAccessObject {
 
     /**
      *
-     * @param orderid
-     * @param price
-     * @param currency
+     * This method writes the users order to the database, in the "orders"
+     * table.
+     *
+     * @param orderid the users chosen order id
+     * @param price the price after it has been currencyconverted.
+     * @param currency the currency the price is in, fx USD or EUR.
      */
-    public void writeOrder(String orderid, double price, String currency) {
+    public void writeOrderToDB(String orderid, double price, String currency) {
         String sql = "insert into orders values('" + orderid + "', CURDATE(), " + price + ", '" + currency + "');";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);

@@ -8,11 +8,14 @@ public class PriceCalculator {
 
     /**
      *
-     * @param hei
-     * @param wid
-     * @param framePrice
-     * @param glassPrice
-     * @return
+     * This method calculates the total price when the dimensions for the window
+     * is given in centimeters.
+     *
+     * @param hei height of the window.
+     * @param wid width of the windows.
+     * @param framePrice is the price of the frame pr meter
+     * @param glassPrice is the price of the glass pr squaremeter
+     * @return is the total price for the window in dkk.
      */
     public double calculatePriceCM(double hei, double wid, double framePrice, double glassPrice) {
         double gp;
@@ -31,11 +34,14 @@ public class PriceCalculator {
 
     /**
      *
-     * @param height
-     * @param width
-     * @param framePrice
-     * @param glassPrice
-     * @return
+     * This method calculates the total price when the dimensions for the window
+     * is given in meters.
+     * 
+     * @param height is the height of the window.
+     * @param width is the width of the window.
+     * @param framePrice is the price of the frame pr meter
+     * @param glassPriceis the price of the glass pr squaremeter
+     * @return is the total price for the window in dkk.
      */
     public double calculatePriceM(double height, double width, double framePrice, double glassPrice) {
         double gp;

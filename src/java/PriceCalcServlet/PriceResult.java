@@ -21,8 +21,10 @@ public class PriceResult extends HttpServlet {
 
     /**
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request servlet request is where the servlet gets data from the
+     * userinputs in input.html
+     * @param response servlet response is where the servlet sends back
+     * response.
      * @throws ServletException if i write something wrong in the html :(
      * @throws IOException dont know when. but it does. Hasnt happened yet.
      */
@@ -44,14 +46,14 @@ public class PriceResult extends HttpServlet {
                 DBConnector con = new DBConnector();
                 DataAccessObject dao = new DataAccessObject(con);
                 //returnPrice needs : height, width, frametype, glasstype, and metric for calculations.
-                price = dao.returnPrice(request.getParameter("height"), request.getParameter("width"),
+                price = dao.getPrice(request.getParameter("height"), request.getParameter("width"),
                         request.getParameter("frametype"), request.getParameter("glass"), request.getParameter("metric"));
 
                 if (price <= 0) {
                     response.sendRedirect("error.html");
                 } else {
                     String cc = currencyConvert(price, request.getParameter("currency"));
-                    dao.writeOrder(request.getParameter("orderid"), price, request.getParameter("currency"));
+                    dao.writeOrderToDB(request.getParameter("orderid"), price, request.getParameter("currency"));
                     out.println("<h3>price: " + cc + "</h3>");
 
                 }
@@ -67,7 +69,8 @@ public class PriceResult extends HttpServlet {
         }
     }
 
-//made with exchangerates from xe.com on 23/11/16
+    //made with exchangerates from xe.com on 23/11/16
+    //This method converts the currency, if the user chooses anything but DKK.
     private String currencyConvert(double Price, String currency) {
         switch (currency) {
             case "DKK":

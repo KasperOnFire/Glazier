@@ -16,14 +16,14 @@ public class DBConnector {
     private static final String PORT = "3306";
 
     /**
-     *
+     * also constants
      */
     public static final String DATABASE = "glazierprices";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
 
     /**
-     *
+     * makes the connection to mysql db
      * @throws Exception
      */
     public DBConnector() throws Exception {
@@ -33,7 +33,7 @@ public class DBConnector {
     }
 
     /**
-     *
+     *returns connection.
      * @return
      */
     public Connection getConnection() {
