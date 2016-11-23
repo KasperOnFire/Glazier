@@ -12,7 +12,7 @@ public class DataAccessObject {
 
     private DBConnector db = null;
     private Connection conn = null;
-    private PriceCalculator calc = null;
+    private PriceCalculator pc = new PriceCalculator();
 
     //The class constructor gives access to the getters in the class, 
     //which give access to the database. The constructor also opens a 
@@ -27,25 +27,30 @@ public class DataAccessObject {
         }
     }
 
-    public int returnPrice(String hei, String wid, String frame) {
+    public double returnPrice(String hei, String wid, String frame) {
         double height = Double.parseDouble(hei);
         double width = Double.parseDouble(wid);
-        int price = 0;
+        double frameprice = getFramePrice(frame);
+        double finalPrice = 0;
+
+        finalPrice = pc.calculatePrice(height, width, frameprice);
+        return finalPrice;
+    }
+
+    private double getFramePrice(String frame) {
+        double frameprice = 0;
         String sql = "select price from pricelist where product='?'";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, frame.toLowerCase());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                //call calculation via method or constructor
-                //pc()
-                return price;
-
+                frameprice = rs.getInt("price");
+                return framePrice;
             }
         } catch (SQLException sqlex) {
-
+            return 0;
         }
-        return price;
+        return 0;
     }
-
 }

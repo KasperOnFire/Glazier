@@ -24,13 +24,14 @@ public class PriceResult extends HttpServlet {
             out.println("<title>Servlet PriceResult</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PriceResult at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Price of window:</h1>");
             try {
                 DBConnector con = new DBConnector();
                 DataAccessObject dao = new DataAccessObject(con);
-                dao.returnPrice(request.getParameter("height"), request.getParameter("width"), request.getParameter("frametype"));
+                double price = dao.returnPrice(request.getParameter("height"), request.getParameter("width"), request.getParameter("frametype"));
+                out.println("<h3>price: " + price + "</h3>");
             } catch (Exception ex) {
-                out.println("<h3> Exception in connection. Maybe MySQL isnt running?</h3>");
+                out.println("<h3> Error in connection. Maybe MySQL isnt running? Error is:" + ex + "</h3>");
             }
             out.println("</body>");
             out.println("</html>");
