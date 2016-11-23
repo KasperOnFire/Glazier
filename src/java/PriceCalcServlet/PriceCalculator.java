@@ -1,4 +1,4 @@
-package PriceCalc;
+package PriceCalcServlet;
 
 public class PriceCalculator {
 

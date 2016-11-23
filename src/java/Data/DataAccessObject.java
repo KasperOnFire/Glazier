@@ -1,6 +1,6 @@
 package data;
 
-import PriceCalc.PriceCalculator;
+import PriceCalcServlet.PriceCalculator;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,19 +23,19 @@ public class DataAccessObject {
             conn = db.getConnection();
 
         } catch (Exception ex) {
-            Logger.getLogger(DataAccessObjectImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataAccessObject.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public double returnPrice(String hei, String wid, String frame) {
+    public double returnPrice(String hei, String wid, String frame, String Glass) {
         double height = Double.parseDouble(hei);
         double width = Double.parseDouble(wid);
         double frameprice = getFramePrice(frame);
-        double glassprice = getGlassPrice("Glass");
+        double glassprice = getGlassPrice(Glass);
         double finalPrice = 0;
 
         if (frameprice == 0) {
-            return 0;
+            return finalPrice;
         } else {
             finalPrice = pc.calculatePrice(height, width, frameprice, glassprice);
             return finalPrice;
