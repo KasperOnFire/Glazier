@@ -48,7 +48,7 @@ public class DataAccessObject {
      * @return the calculated prize for the specified window. Will later be
      * currency converted in PriceResult.java/currencyConvert();
      */
-    public double getPrice(String hei, String wid, String frame, String Glass, String metric) {
+    public double getPrice(String hei, String wid, String frame,String Glass, String metric) {
         double height = Double.parseDouble(hei);
         double width = Double.parseDouble(wid);
         double frameprice = getFramePriceFromSQL(frame);

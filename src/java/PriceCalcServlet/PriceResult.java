@@ -36,7 +36,7 @@ public class PriceResult extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PriceResult</title>");
+            out.println("<title>Result</title>");
             out.println("<link href=\"Glazier.css\" rel=\"stylesheet\">");
             out.println("</head>");
             out.println("<body>");
@@ -46,16 +46,16 @@ public class PriceResult extends HttpServlet {
                 DBConnector con = new DBConnector();
                 DataAccessObject dao = new DataAccessObject(con);
                 //returnPrice needs : height, width, frametype, glasstype, and metric for calculations.
-                price = dao.getPrice(request.getParameter("height"), request.getParameter("width"),
-                        request.getParameter("frametype"), request.getParameter("glass"), request.getParameter("metric"));
-
+                price = dao.getPrice(request.getParameter("height"),
+                        request.getParameter("width"), request.getParameter("frametype"),
+                        request.getParameter("glass"), request.getParameter("metric"));
                 if (price <= 0) {
                     response.sendRedirect("error.html");
                 } else {
                     String cc = currencyConvert(price, request.getParameter("currency"));
-                    dao.writeOrderToDB(request.getParameter("orderid"), price, request.getParameter("currency"));
+                    dao.writeOrderToDB(request.getParameter("orderid"), price, 
+                            request.getParameter("currency"));
                     out.println("<h3>price: " + cc + "</h3>");
-
                 }
             } catch (Exception ex) {
                 out.println("<h3>Error in connection. Maybe MySQL isnt running? Error is:" + ex + "</h3>");
@@ -74,19 +74,40 @@ public class PriceResult extends HttpServlet {
     private String currencyConvert(double Price, String currency) {
         switch (currency) {
             case "DKK":
-                return Price + " DKK";
+                return round(price, 2) + " DKK";
             case "USD":
                 price = (Price * 0.14187);
-                return price + " USD";
+                return round(price, 2) + " USD";
             case "GBP":
                 price = (Price * 0.11403);
-                return price + " GBP";
+                return round(price, 2) + " GBP";
             case "EUR":
                 price = (Price * 0.13442);
-                return price + " EUR";
+                return round(price, 2) + " EUR";
             default:
                 return "something is horribly wrong with the chosen currency!";
         }
+    }
+
+    //
+    /**
+     * borrowed with lots of love from stackoverflow. i cannot claim Credit for
+     * this method, but i needed a method for making my prices in different
+     * currencies shorter without being imprecise.
+     *
+     * @param value is the number to round.
+     * @param places is the number of decimal places you want
+     * @return is the rounded double.
+     */
+    public static double round(double value, int places) {
+        if (places < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
