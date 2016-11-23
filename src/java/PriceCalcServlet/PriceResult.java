@@ -13,13 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PriceResult", urlPatterns = {"/PriceResult"})
 public class PriceResult extends HttpServlet {
 
-    private DataAccessObject dao = null;
-
-    public PriceResult() throws Exception {
-        DBConnector con = new DBConnector();
-        dao = new DataAccessObject(con);
-    }
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -34,11 +27,17 @@ public class PriceResult extends HttpServlet {
             out.println("<body>");
             out.println("<div class=\"maindiv\">");
             out.println("<h1>Price of window:</h1>");
-            double price = dao.returnPrice(request.getParameter("height"), request.getParameter("width"), request.getParameter("frametype"), "glass");
-            if (price == 0) {
-                response.sendRedirect("error.html");
-            } else {
-                out.println("<h3>price: " + price + "</h3>");
+            try {
+                DBConnector con = new DBConnector();
+                DataAccessObject dao = new DataAccessObject(con);
+                double price = dao.returnPrice(request.getParameter("height"), request.getParameter("width"), request.getParameter("frametype"), "glass");
+                if (price == 0) {
+                    response.sendRedirect("error.html");
+                } else {
+                    out.println("<h3>price: " + price + "</h3>");
+                }
+            } catch (Exception ex) {
+                out.println("<h3>Error in connection. Maybe MySQL isnt running? Error is:" + ex + "</h3>");
             }
             out.println("</div>");
             out.println("</body>");
