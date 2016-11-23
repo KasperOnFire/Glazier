@@ -21,10 +21,10 @@ public class PriceResult extends HttpServlet {
 
     /**
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if i write something wrong in the html :(
+     * @throws IOException dont know when. but it does. Hasnt happened yet.
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
