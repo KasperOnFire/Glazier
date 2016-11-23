@@ -44,10 +44,9 @@ public class DataAccessObject {
 
     private double getFramePrice(String frame) {
         double framePrice = 0;
-        String sql = "select price from pricelist where product='?'";
+        String sql = "select price from pricelist where product='" + frame + "'";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, frame.toLowerCase());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 framePrice = rs.getInt("price");
@@ -61,10 +60,9 @@ public class DataAccessObject {
 
     private double getGlassPrice(String glass) {
         double glassPrice = 0;
-        String sql = "select price from pricelist where product='?'";
+        String sql = "select price from pricelist where product='" + glass + "'";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, glass);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 glassPrice = rs.getInt("price");
