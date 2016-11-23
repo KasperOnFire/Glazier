@@ -41,6 +41,7 @@ public class DataAccessObject {
      * @param wid
      * @param frame
      * @param Glass
+     * @param metric
      * @return
      */
     public double returnPrice(String hei, String wid, String frame, String Glass, String metric) {
@@ -94,6 +95,12 @@ public class DataAccessObject {
         return glassPrice;
     }
 
+    /**
+     *
+     * @param orderid
+     * @param price
+     * @param currency
+     */
     public void writeOrder(String orderid, double price, String currency) {
         String sql = "insert into orders values('" + orderid + "', CURDATE(), " + price + ", '" + currency + "');";
         try {

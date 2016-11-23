@@ -29,6 +29,14 @@ public class PriceCalculator {
 
     }
 
+    /**
+     *
+     * @param height
+     * @param width
+     * @param framePrice
+     * @param glassPrice
+     * @return
+     */
     public double calculatePriceM(double height, double width, double framePrice, double glassPrice) {
         double gp;
         double fp;
