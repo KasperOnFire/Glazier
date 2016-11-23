@@ -8,26 +8,36 @@ and open the template in the editor.
     Author     : Kasper
 */
 body{
-    background-color: #444;
+    background-image: url(redyellow.jpg);
 }
 
 .maindiv{
     position: fixed;
-    height: 100%;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
-    background-color: rgba(255, 255, 255, 0.2);
+    height: 90%;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    background-color: rgba(255, 255, 255, 0.25);
     font-family: sans-serif;
     text-align: center;
     font-weight: bold;
+    border-radius: 10%;
+
 }
 
+form{
+    font-size: 25px;
+}
 input{
     display: block;
-    margin: 5px auto;
+    margin: 10px auto;
 }
 
+select{
+    margin: 10px auto;
+}
 .maindiv p{
     font-size: 20px;
 }

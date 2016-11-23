@@ -14,7 +14,7 @@ public class PriceCalculator {
      * @param glassPrice
      * @return
      */
-    public double calculatePrice(double hei, double wid, double framePrice, double glassPrice) {
+    public double calculatePriceCM(double hei, double wid, double framePrice, double glassPrice) {
         double gp;
         double fp;
         double price = 0;
@@ -27,5 +27,19 @@ public class PriceCalculator {
             return price;
         }
 
+    }
+
+    public double calculatePriceM(double height, double width, double framePrice, double glassPrice) {
+        double gp;
+        double fp;
+        double price = 0;
+        if (framePrice > 0 && glassPrice > 0 && height > 0 && width > 0) {
+            gp = (height * width) * glassPrice;
+            fp = (height + width) * framePrice;
+            price = gp + fp;
+            return price;
+        } else {
+            return price;
+        }
     }
 }

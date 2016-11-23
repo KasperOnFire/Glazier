@@ -33,7 +33,7 @@ public class PriceCalculatorTest {
      * from assignment papers.
      */
     @Test
-    public void testCalculatePrice() {
+    public void testCalculatePriceCM() {
         System.out.println("calculatePrice");
         double hei = 100;
         double wid = 160.0;
@@ -41,7 +41,7 @@ public class PriceCalculatorTest {
         double glassPrice = 300.0;
         PriceCalculator instance = new PriceCalculator();
         double expResult = 1000.0;
-        double result = instance.calculatePrice(hei, wid, framePrice, glassPrice);
+        double result = instance.calculatePriceCM(hei, wid, framePrice, glassPrice);
         assertEquals(expResult, result, 0.0);
         System.out.println("calculatePrice Passed");
     }
@@ -56,7 +56,7 @@ public class PriceCalculatorTest {
         double glassPrice = 300.0;
         PriceCalculator instance = new PriceCalculator();
         double expResult = 0;
-        double result = instance.calculatePrice(hei, wid, framePrice, glassPrice);
+        double result = instance.calculatePriceCM(hei, wid, framePrice, glassPrice);
         assertEquals(expResult, result, 0.0);
         System.out.println("calculatePrice with negative numbers Passed");
     }
@@ -70,7 +70,7 @@ public class PriceCalculatorTest {
         double glassPrice = 300.0;
         PriceCalculator instance = new PriceCalculator();
         double expResult = 0;
-        double result = instance.calculatePrice(hei, wid, framePrice, glassPrice);
+        double result = instance.calculatePriceCM(hei, wid, framePrice, glassPrice);
         assertEquals(expResult, result, 0.0);
         System.out.println("calculatePrice with frame Zero Passed");
     }
@@ -84,9 +84,14 @@ public class PriceCalculatorTest {
         double glassPrice = 300.0;
         PriceCalculator instance = new PriceCalculator();
         double expResult = 12564000.0;
-        double result = instance.calculatePrice(hei, wid, framePrice, glassPrice);
+        double result = instance.calculatePriceCM(hei, wid, framePrice, glassPrice);
         assertEquals(expResult, result, 0.0);
         System.out.println("calculatePrice with Large frame Passed");
+    }
+
+    @Test
+    public void testCalculateCMAndMIsSame() {
+        fail();
     }
 
 }

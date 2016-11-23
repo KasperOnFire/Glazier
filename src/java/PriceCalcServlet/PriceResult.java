@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PriceResult", urlPatterns = {"/PriceResult"})
 public class PriceResult extends HttpServlet {
 
+    private double price;
+
     /**
      *
      * @param request
@@ -41,22 +43,50 @@ public class PriceResult extends HttpServlet {
             try {
                 DBConnector con = new DBConnector();
                 DataAccessObject dao = new DataAccessObject(con);
-                double price = dao.returnPrice(request.getParameter("height"), request.getParameter("width"), request.getParameter("frametype"), "glass");
+                //returnPrice needs : height, width, frametype, glasstype, and metric for calculations.
+                price = dao.returnPrice(request.getParameter("height"), request.getParameter("width"),
+                        request.getParameter("frametype"), request.getParameter("glass"), request.getParameter("metric"));
+
                 if (price <= 0) {
                     response.sendRedirect("error.html");
                 } else {
-                    out.println("<h3>price: " + price + ",-</h3>");
+                    String cc = currencyConvert(price, request.getParameter("currency"));
+                    dao.writeOrder(request.getParameter("orderid"), price, request.getParameter("currency"));
+                    out.println("<h3>price: " + cc + "</h3>");
+
                 }
             } catch (Exception ex) {
                 out.println("<h3>Error in connection. Maybe MySQL isnt running? Error is:" + ex + "</h3>");
             }
+            out.println("<form action=\"input.html\">\n");
+            out.println("<input type=\"submit\" value=\"new calculation!\">\n");
+            out.println("</form>");
             out.println("</div>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+//made with exchangerates from xe.com on 23/11/16
+    private String currencyConvert(double Price, String currency) {
+        switch (currency) {
+            case "DKK":
+                return Price + " DKK";
+            case "USD":
+                price = (Price * 0.14187);
+                return price + " USD";
+            case "GBP":
+                price = (Price * 0.11403);
+                return price + " GBP";
+            case "EUR":
+                price = (Price * 0.13442);
+                return price + " EUR";
+            default:
+                return "something is horribly wrong with the chosen currency!";
+        }
+    }
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

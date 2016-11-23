@@ -1,9 +1,17 @@
-DROP TABLE IF EXISTS `PRICELIST`;
+DROP TABLE IF EXISTS pricelist;
+drop table if exists orders;
 
-CREATE TABLE `PRICELIST` (
+CREATE TABLE pricelist (
 product varchar(255) NOT NULL,
 price int not null,
 PRIMARY KEY (`product`)
+);
+
+create table orders(
+order_id varchar(255) NOT NULL,
+dato date,
+order_amount double not null,
+order_currency varchar(255) Not null
 );
 
 insert into PRICELIST values ('glass', 300);

@@ -36,16 +36,17 @@ public class DataAccessObjectTest {
      * established.
      */
     @Test
-    public void testReturnPrice() throws Exception {
+    public void testReturnPriceCM() throws Exception {
         System.out.println("returnPrice");
         String hei = "100";
-        String wid = "120";
+        String wid = "160";
         String frame = "vinyl frame";
-        String Glass = "glass";
+        String glass = "glass";
+        String metric = "cm";
         DBConnector conn = new DBConnector();
         DataAccessObject instance = new DataAccessObject(conn);
         double expResult = 1000.0;
-        double result = instance.returnPrice(hei, wid, frame, Glass);
+        double result = instance.returnPrice(hei, wid, frame, glass, metric);
         assertEquals(expResult, result, 0.0);
 
     }

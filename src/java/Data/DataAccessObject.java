@@ -43,7 +43,7 @@ public class DataAccessObject {
      * @param Glass
      * @return
      */
-    public double returnPrice(String hei, String wid, String frame, String Glass) {
+    public double returnPrice(String hei, String wid, String frame, String Glass, String metric) {
         double height = Double.parseDouble(hei);
         double width = Double.parseDouble(wid);
         double frameprice = getFramePriceFromSQL(frame);
@@ -52,10 +52,14 @@ public class DataAccessObject {
 
         if (frameprice == 0) {
             return finalPrice;
-        } else {
-            finalPrice = pc.calculatePrice(height, width, frameprice, glassprice);
+        } else if (metric.toLowerCase().equals("cm")) {
+            finalPrice = pc.calculatePriceCM(height, width, frameprice, glassprice);
+            return finalPrice;
+        } else if (metric.toLowerCase().equals("m")) {
+            finalPrice = pc.calculatePriceM(height, width, frameprice, glassprice);
             return finalPrice;
         }
+        return finalPrice;
     }
 
     private double getFramePriceFromSQL(String frame) {
@@ -88,5 +92,15 @@ public class DataAccessObject {
             return glassPrice;
         }
         return glassPrice;
+    }
+
+    public void writeOrder(String orderid, double price, String currency) {
+        String sql = "insert into orders values('" + orderid + "', CURDATE(), " + price + ", '" + currency + "');";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.executeUpdate();
+        } catch (SQLException sqlex) {
+
+        }
     }
 }
