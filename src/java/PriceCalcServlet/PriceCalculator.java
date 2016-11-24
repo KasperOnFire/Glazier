@@ -52,4 +52,33 @@ public class PriceCalculator {
             return price;
         }
     }
+
+    /**
+     *
+     * Same as above, but calculates the dimensions from inches to cm before
+     * calculating price.
+     *
+     * @param height is the height of the window.
+     * @param width is the width of the window
+     * @param framePrice is the price of the frame pr meter.
+     * @param glassPrice is the price of the glass pr square meter.
+     * @return
+     */
+    public double calculatePriceInch(double height, double width, double framePrice, double glassPrice) {
+        double gp;
+        double fp;
+        double heiCM = height * 2.54;
+        double widCM = width * 2.54;
+        double price = 0;
+        if (framePrice > 0 && glassPrice > 0 && heiCM > 0 && widCM > 0) {
+            gp = (heiCM * widCM) / 10000 * glassPrice;
+            fp = (heiCM + widCM) / 100 * framePrice;
+            price = gp + fp;
+            return price;
+        } else {
+            return price;
+        }
+
+    }
+
 }

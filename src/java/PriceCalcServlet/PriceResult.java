@@ -49,7 +49,7 @@ public class PriceResult extends HttpServlet {
                     response.sendRedirect("error.html");
                 } else {
                     String cc = currencyConvert(price, request.getParameter("currency"));
-                    dao.writeOrderToDB(request.getParameter("orderid"), price,
+                    dao.writeOrderToDB(request.getParameter("orderid"), round(price, 2),
                             request.getParameter("currency"));
                     out.println("<h3>price: " + cc + "</h3>");
                 }

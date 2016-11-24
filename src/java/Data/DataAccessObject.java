@@ -59,6 +59,9 @@ public class DataAccessObject {
         } else if (metric.toLowerCase().equals("m")) {
             finalPrice = pc.calculatePriceM(height, width, frameprice, glassprice);
             return finalPrice;
+        } else if (metric.toLowerCase().equals("inches")) {
+            finalPrice = pc.calculatePriceInch(height, width, frameprice, glassprice);
+            return finalPrice;
         }
         return finalPrice;
     }
