@@ -8,10 +8,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Kasper
- */
 public class DataAccessObject {
 
     private DBConnector db = null;
@@ -48,7 +44,7 @@ public class DataAccessObject {
      * @return the calculated prize for the specified window. Will later be
      * currency converted in PriceResult.java/currencyConvert();
      */
-    public double getPrice(String hei, String wid, String frame,String Glass, String metric) {
+    public double getPrice(String hei, String wid, String frame, String Glass, String metric) {
         double height = Double.parseDouble(hei);
         double width = Double.parseDouble(wid);
         double frameprice = getFramePriceFromSQL(frame);
@@ -67,6 +63,12 @@ public class DataAccessObject {
         return finalPrice;
     }
 
+    /**
+     * Method for getting the price of the chosen window frame from the SQL DB.
+     *
+     * @param frame is the frametype.
+     * @return is the price pr meter of the frametype.
+     */
     private double getFramePriceFromSQL(String frame) {
         double framePrice = 0;
         String sql = "select price from pricelist where product='" + frame + "'";
@@ -83,6 +85,12 @@ public class DataAccessObject {
         return framePrice;
     }
 
+    /**
+     * Method for getting the price of the chosen glass from the SQL DB.
+     *
+     * @param glass is the type of glass
+     * @return is the price of the glass pr square meter.
+     */
     private double getGlassPriceFromSQL(String glass) {
         double glassPrice = 0;
         String sql = "select price from pricelist where product='" + glass + "'";

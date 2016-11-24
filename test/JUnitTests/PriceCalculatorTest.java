@@ -1,5 +1,6 @@
-package PriceCalcServlet;
+package JUnitTests;
 
+import PriceCalcServlet.PriceCalculator;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

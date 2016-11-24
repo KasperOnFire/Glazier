@@ -10,10 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Kasper
- */
 @WebServlet(name = "PriceResult", urlPatterns = {"/PriceResult"})
 public class PriceResult extends HttpServlet {
 
@@ -53,7 +49,7 @@ public class PriceResult extends HttpServlet {
                     response.sendRedirect("error.html");
                 } else {
                     String cc = currencyConvert(price, request.getParameter("currency"));
-                    dao.writeOrderToDB(request.getParameter("orderid"), price, 
+                    dao.writeOrderToDB(request.getParameter("orderid"), price,
                             request.getParameter("currency"));
                     out.println("<h3>price: " + cc + "</h3>");
                 }
@@ -69,20 +65,27 @@ public class PriceResult extends HttpServlet {
         }
     }
 
-    //made with exchangerates from xe.com on 23/11/16
-    //This method converts the currency, if the user chooses anything but DKK.
-    private String currencyConvert(double Price, String currency) {
+    /**
+     * made with exchangerates from xe.com on 23/11/16
+     *
+     * This method converts the currency, if the user chooses anything but DKK.
+     *
+     * @param inputPrice is the price to convert.
+     * @param currency is the currency the user wants the price in.
+     * @return is the converted and rounded price.
+     */
+    private String currencyConvert(double inputPrice, String currency) {
         switch (currency) {
             case "DKK":
                 return round(price, 2) + " DKK";
             case "USD":
-                price = (Price * 0.14187);
+                price = (inputPrice * 0.14187);
                 return round(price, 2) + " USD";
             case "GBP":
-                price = (Price * 0.11403);
+                price = (inputPrice * 0.11403);
                 return round(price, 2) + " GBP";
             case "EUR":
-                price = (Price * 0.13442);
+                price = (inputPrice * 0.13442);
                 return round(price, 2) + " EUR";
             default:
                 return "something is horribly wrong with the chosen currency!";
@@ -93,7 +96,8 @@ public class PriceResult extends HttpServlet {
     /**
      * borrowed with lots of love from stackoverflow. i cannot claim Credit for
      * this method, but i needed a method for making my prices in different
-     * currencies shorter without being imprecise.
+     * currencies shorter without being imprecise. I do understand how it works
+     * though.
      *
      * @param value is the number to round.
      * @param places is the number of decimal places you want
@@ -146,7 +150,7 @@ public class PriceResult extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet for calculating the price of a window.";
     }// </editor-fold>
 
 }

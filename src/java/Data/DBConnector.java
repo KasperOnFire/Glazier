@@ -24,7 +24,8 @@ public class DBConnector {
 
     /**
      * makes the connection to mysql db
-     * @throws Exception
+     *
+     * @throws Exception whenever something baaaad happens.
      */
     public DBConnector() throws Exception {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -33,8 +34,9 @@ public class DBConnector {
     }
 
     /**
-     *returns connection.
-     * @return
+     * returns connection.
+     *
+     * @return connection.
      */
     public Connection getConnection() {
         return this.connection;

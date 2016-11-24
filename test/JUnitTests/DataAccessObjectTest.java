@@ -1,4 +1,4 @@
-package Data;
+package JUnitTests;
 
 import data.DBConnector;
 import data.DataAccessObject;
